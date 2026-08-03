@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตารางเรียนและภารกิจประจำวัน - ธนภัทร (Paramedic PMD 2569)</title>
+    <title>Personal Master Dashboard - ธนภัทร (PMD 2569)</title>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
+            --bg-color: #0b0f19;
+            --card-bg: #151d2a;
             --accent-color: #38bdf8;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --accent-rose: #f43f5e;
+            --accent-amber: #f59e0b;
             --text-color: #f8fafc;
-            --border-color: #334155;
-            --highlight: #f43f5e;
-            --success: #10b981;
+            --text-muted: #94a3b8;
+            --border-color: #243042;
         }
         * { box-sizing: border-box; }
         body {
@@ -26,90 +29,273 @@
             justify-content: center;
             min-height: 100vh;
         }
-        .container { width: 100%; max-width: 900px; }
+        .container { width: 100%; max-width: 1100px; }
         header {
             text-align: center;
-            margin-bottom: 24px;
-            padding: 24px 16px;
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+            margin-bottom: 20px;
+            padding: 24px;
+            background: linear-gradient(135deg, #151d2a, #0b0f19);
             border-radius: 16px;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 25px rgba(0,0,0,0.5);
         }
-        h1 { color: var(--accent-color); margin: 0 0 8px 0; font-size: 1.6rem; }
-        p.subtitle { color: #94a3b8; margin: 0; font-size: 0.95rem; }
+        h1 { color: var(--accent-color); margin: 0 0 6px 0; font-size: 1.8rem; }
+        p.subtitle { color: var(--text-muted); margin: 0; font-size: 0.95rem; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+        }
+
         .card {
             background-color: var(--card-bg);
             border-radius: 16px;
             padding: 20px;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
         }
-        h2 { color: #38bdf8; font-size: 1.2rem; margin-top: 0; }
+        h2 { color: var(--accent-color); font-size: 1.15rem; margin-top: 0; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        
+        /* Stats Widget */
+        .stat-box {
+            background: #0f172a;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+        .stat-val { font-size: 1.5rem; font-weight: 700; color: var(--accent-color); }
+        .stat-lbl { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* Tables */
         .table-responsive { width: 100%; overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 14px 16px; text-align: left; border-bottom: 1px solid var(--border-color); }
-        th { background-color: #0f172a; color: var(--accent-color); font-weight: 600; font-size: 0.85rem; }
-        tr:hover { background-color: #26354a; }
-        .time-badge { background-color: #0284c7; color: white; padding: 4px 10px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; }
-        .badge { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
-        .tag-workshop { background-color: #f43f5e; color: white; }
-        .tag-presentation { background-color: #ec4899; color: white; }
-        .status-pending { color: #fbbf24; font-weight: 600; }
+        th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.88rem; }
+        th { background-color: #0f172a; color: var(--accent-color); font-weight: 600; font-size: 0.8rem; }
+        tr:hover { background-color: #1c2738; }
 
-        @media (max-width: 640px) {
-            table, thead, tbody, th, td, tr { display: block; }
-            thead { display: none; }
-            tr { background: #111827; margin-bottom: 12px; border-radius: 12px; padding: 14px; border: 1px solid var(--border-color); }
-            td { border-bottom: none; padding: 6px 0; display: flex; justify-content: space-between; font-size: 0.9rem; }
-            td::before { content: attr(data-label); font-weight: 600; color: #94a3b8; font-size: 0.8rem; }
-        }
-        footer { text-align: center; margin-top: 24px; color: #64748b; font-size: 0.8rem; }
+        .time-badge { background-color: #0284c7; color: white; padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; }
+        .badge { padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+        .bg-green { background-color: #059669; color: white; }
+        .bg-purple { background-color: #7c3aed; color: white; }
+        .bg-rose { background-color: #e11d48; color: white; }
+        .bg-amber { background-color: #d97706; color: white; }
+
+        footer { text-align: center; margin-top: 24px; color: var(--text-muted); font-size: 0.8rem; }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📅 ตารางเรียนและภารกิจประจำวัน - ธนภัทร (PMD 2569)</h1>
-            <p class="subtitle">ระบบจัดการตารางงานส่วนตัว - พารามีดิกรพ.ขอนแก่น</p>
+            <h1>📊 Antigravity Master Executive Dashboard</h1>
+            <p class="subtitle">ระบบศูนย์กลางข้อมูลส่วนตัว - ธนภัทร (PMD 2569 / Paramedic รพ.ขอนแก่น)</p>
         </header>
 
-        <div class="card">
-            <h2>📅 ตารางเรียนวันพรุ่งนี้ (อังคารที่ 4 สิงหาคม 2569)</h2>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>เวลา</th>
-                            <th>ประเภท</th>
-                            <th>กิจกรรม / รายละเอียด</th>
-                            <th>สถานที่ / ผู้สอน</th>
-                            <th>สถานะ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label="เวลา"><span class="time-badge">09:00 - 12:00</span></td>
-                            <td data-label="ประเภท"><span class="badge tag-workshop">Workshop</span></td>
-                            <td data-label="กิจกรรม">MCI DESIGN FRAMEWORK WORKSHOP</td>
-                            <td data-label="สถานที่">ห้องประชุมศูนย์การเรียนรู้</td>
-                            <td data-label="สถานะ"><span class="status-pending">⏳ รอดำเนินการ</span></td>
-                        </tr>
-                        <tr>
-                            <td data-label="เวลา"><span class="time-badge">13:00 - 14:00</span></td>
-                            <td data-label="ประเภท"><span class="badge tag-presentation">พรีเซนต์กลุ่ม</span></td>
-                            <td data-label="กิจกรรม">Topic Presentation: Head and spinal trauma (กลุ่ม 3 ขึ้นพรีเซนต์)</td>
-                            <td data-label="สถานที่">ห้อง omega two (นพ.ปุณยวัจน์ / ชลธาร)</td>
-                            <td data-label="สถานะ"><span class="status-pending">⏳ รอดำเนินการ</span></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <!-- Summary Metric Boxes -->
+        <div class="grid-3">
+            <div class="stat-box">
+                <div class="stat-lbl">🏋️‍♂️ น้ำหนักล่าสุด (3 ส.ค. 69)</div>
+                <div class="stat-val" style="color: #38bdf8;">88.4 kg</div>
+                <div class="stat-lbl">Body Fat 26.4% | BMR 1,776 Kcal</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-lbl">🥗 โภชนาการรวมวันนี้</div>
+                <div class="stat-val" style="color: #10b981;">1,860 Kcal</div>
+                <div class="stat-lbl">โปรตีน 84g | คาร์บ 238g | ไขมัน 60.5g</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-lbl">💰 สรุปรายจ่ายวันนี้ (3 ส.ค.)</div>
+                <div class="stat-val" style="color: #f43f5e;">5,367.00 ฿</div>
+                <div class="stat-lbl">ค่าหอ 4,464฿ | ให้ยาย 534฿ | กิน 270฿</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Schedule Card -->
+            <div class="card">
+                <h2>📅 ตารางเรียน & ขึ้นเวรประจำสัปดาห์</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>วัน / เวลา</th>
+                                <th>กิจกรรม / รายละเอียด</th>
+                                <th>สถานที่</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="time-badge">อ. 4 ส.ค. 09:00</span></td>
+                                <td>MCI DESIGN FRAMEWORK WORKSHOP</td>
+                                <td>ศูนย์การเรียนรู้</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge">อ. 4 ส.ค. 13:00</span></td>
+                                <td>🎤 พรีเซนต์กลุ่ม 3 (Head & Spinal Trauma)</td>
+                                <td>ห้อง omega two</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge">อ. 4 ส.ค. 17:00</span></td>
+                                <td>🚗 เดินทางไปซ้อมคอรัส</td>
+                                <td>มมส. สารคาม</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge">พุธ 5 ส.ค. 09:00</span></td>
+                                <td>F: การตัดสินการตาย / T: Case Disc.</td>
+                                <td>ศูนย์การเรียนรู้</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-rose">พฤ. 6 ส.ค. บ่าย</span></td>
+                                <td>🚑 ขึ้นเวรบ่าย ตำแหน่ง RESUS (ลาเรียน)</td>
+                                <td>ห้องกู้ชีพ รพ.ขอนแก่น</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-rose">อา. 9 ส.ค. บ่าย</span></td>
+                                <td>🚑 ขึ้นเวรบ่าย ตำแหน่ง EMS</td>
+                                <td>ศูนย์รับแจ้งเหตุ รพ.ขอนแก่น</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Finance Log Card -->
+            <div class="card">
+                <h2>🧾 บันทึกการเงินประจำวัน (Financial Log)</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>เวลา</th>
+                                <th>รายการ / ผู้รับเงิน</th>
+                                <th>หมวดหมู่</th>
+                                <th>จำนวน (บาท)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>09:11</td>
+                                <td>เกียรติชัย ผิวขาว</td>
+                                <td><span class="badge bg-purple">ค่าหอพักประจำเดือน</span></td>
+                                <td style="color:#f43f5e; font-weight:600;">4,464.00</td>
+                            </tr>
+                            <tr>
+                                <td>09:13</td>
+                                <td>G-Wallet (เป๋าตัง)</td>
+                                <td><span class="badge bg-green">กตัญญู / ให้ยาย</span></td>
+                                <td style="color:#f43f5e; font-weight:600;">534.00</td>
+                            </tr>
+                            <tr>
+                                <td>09:13</td>
+                                <td>iCloud Reserve</td>
+                                <td><span class="badge bg-amber">ซอฟต์แวร์/iCloud</span></td>
+                                <td style="color:#f43f5e; font-weight:600;">99.00</td>
+                            </tr>
+                            <tr>
+                                <td>10:35</td>
+                                <td>บริษัท สเตชั่นริช จำกัด</td>
+                                <td><span class="badge bg-amber">มื้อเช้า-เที่ยง</span></td>
+                                <td style="color:#f43f5e; font-weight:600;">200.00</td>
+                            </tr>
+                            <tr>
+                                <td>16:11</td>
+                                <td>ร้านซัวเถา (บะหมี่เป็ดย่าง)</td>
+                                <td><span class="badge bg-amber">มื้อเย็น</span></td>
+                                <td style="color:#f43f5e; font-weight:600;">70.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Fitness & Body Comp Card -->
+            <div class="card">
+                <h2>🏋️‍♂️ สุขภาพ & องค์ประกอบร่างกาย (Body Composition)</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ดัชนี</th>
+                                <th>ค่าที่วัดได้</th>
+                                <th>การประเมิน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Muscle Mass (มวลกล้ามเนื้อ)</td>
+                                <td><b>61.5 kg</b> (69.6%)</td>
+                                <td><span class="badge bg-green">ดีมาก (Good)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Skeletal Muscle Mass</td>
+                                <td><b>36.3 kg</b></td>
+                                <td><span class="badge bg-green">มาตรฐาน</span></td>
+                            </tr>
+                            <tr>
+                                <td>Visceral Fat (ไขมันช่องท้อง)</td>
+                                <td><b>Rating 9</b></td>
+                                <td><span class="badge bg-rose">สะสมสูง (High)</span></td>
+                            </tr>
+                            <tr>
+                                <td>BMR (การเผาผลาญพื้นฐาน)</td>
+                                <td><b>1,776 Kcal</b></td>
+                                <td><span class="badge bg-green">มาตรฐาน</span></td>
+                            </tr>
+                            <tr>
+                                <td>Body Age (อายุกายภาพ)</td>
+                                <td><b>19 ปี</b></td>
+                                <td><span class="badge bg-green">เยาว์วัย</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Workflow & Reminders Card -->
+            <div class="card">
+                <h2>🤖 การแจ้งเตือน & ระบบเลขาฯ อัตโนมัติ</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>เวลาแจ้งเตือน</th>
+                                <th>ภารกิจ / เรื่องที่แจ้งเตือน</th>
+                                <th>ช่องทาง</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="time-badge bg-purple">19:30 น. (คืนนี้)</span></td>
+                                <td>🧺 ปลุกเอาผ้าไปซัก/ตาก สำหรับชุดสกิลพรุ่งนี้</td>
+                                <td>Telegram Bot</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-purple">21:30 น. (ทุกคืน)</span></td>
+                                <td>🌙 สรุปรายงานก่อนนอน (Night Summary Report)</td>
+                                <td>Telegram Bot</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-purple">06:30 น. (ทุกเช้า)</span></td>
+                                <td>☀️ สรุปรายงานเช้า + พยากรณ์อากาศ + เมนูอาหาร</td>
+                                <td>Telegram Bot</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-purple">ศุกร์ 18:00 น.</span></td>
+                                <td>📊 สรุปแผนประจำสัปดาห์หน้าอัตโนมัติ</td>
+                                <td>Telegram Bot</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
         <footer>
-            <p>Antigravity Personal Assistant • Somchai Bot System</p>
+            <p>Antigravity Personal Executive Dashboard • Created & Managed by Somchai Bot Assistant</p>
         </footer>
     </div>
 </body>
