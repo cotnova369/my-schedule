@@ -98,14 +98,14 @@
         <!-- Summary Metric Boxes -->
         <div class="grid-4">
             <div class="stat-box">
-                <div class="stat-lbl">🏋️‍♂️ น้ำหนักล่าสุด (3 ส.ค. 69)</div>
-                <div class="stat-val" style="color: #38bdf8;">88.4 kg</div>
-                <div class="stat-lbl">Fat 26.4% | Muscle 61.5 kg</div>
+                <div class="stat-lbl">🏋️‍♂️ น้ำหนักล่าสุด (4 ส.ค. 06:57)</div>
+                <div class="stat-val" style="color: #38bdf8;">88.7 kg</div>
+                <div class="stat-lbl">Fat 26.5% | Water 49.4 kg</div>
             </div>
             <div class="stat-box">
-                <div class="stat-lbl">🥗 พลังงานรวมวันนี้</div>
-                <div class="stat-val" style="color: #10b981;">1,860 Kcal</div>
-                <div class="stat-lbl">โปรตีน 84g | คาร์บ 238g</div>
+                <div class="stat-lbl">🥗 พลังงานเป้าหมายวันนี้</div>
+                <div class="stat-val" style="color: #10b981;">1,850 Kcal</div>
+                <div class="stat-lbl">เป้าโปรตีน 145g | BMR 1,776</div>
             </div>
             <div class="stat-box">
                 <div class="stat-lbl">🍦 โควตาของหวานประจำสัปดาห์</div>
@@ -113,7 +113,7 @@
                 <div class="stat-lbl">ใช้ไป 0 ครั้งในสัปดาห์นี้</div>
             </div>
             <div class="stat-box">
-                <div class="stat-lbl">💰 สรุปรายจ่ายวันนี้</div>
+                <div class="stat-lbl">💰 สรุปรายจ่ายสะสม</div>
                 <div class="stat-val" style="color: #f43f5e;">5,468.00 ฿</div>
                 <div class="stat-lbl">ค่าหอ 4,464฿ | ยาย 574฿</div>
             </div>
@@ -361,11 +361,11 @@
         new Chart(ctxWeight, {
             type: 'line',
             data: {
-                labels: ['2 ส.ค. 69', '3 ส.ค. 69 (ปัจจุบัน)'],
+                labels: ['2 ส.ค. 69', '3 ส.ค. 69', '4 ส.ค. 69 (เช้านี้)'],
                 datasets: [
                     {
                         label: 'น้ำหนัก (kg)',
-                        data: [88.7, 88.4],
+                        data: [88.7, 88.4, 88.7],
                         borderColor: '#38bdf8',
                         backgroundColor: 'rgba(56, 189, 248, 0.2)',
                         tension: 0.3,
@@ -373,7 +373,7 @@
                     },
                     {
                         label: 'Body Fat (%)',
-                        data: [26.6, 26.4],
+                        data: [26.6, 26.4, 26.5],
                         borderColor: '#f43f5e',
                         backgroundColor: 'rgba(244, 63, 94, 0.2)',
                         tension: 0.3,
@@ -396,16 +396,16 @@
         new Chart(ctxNutrition, {
             type: 'bar',
             data: {
-                labels: ['3 ส.ค. 69 (วันนี้)'],
+                labels: ['3 ส.ค. 69 (เมื่อวาน)', '4 ส.ค. 69 (เป้าหมายวันนี้)'],
                 datasets: [
                     {
                         label: 'พลังงานรับประทานจริง (Kcal)',
-                        data: [1860],
+                        data: [1860, 1850],
                         backgroundColor: '#10b981'
                     },
                     {
                         label: 'เป้าหมาย BMR (Kcal)',
-                        data: [1776],
+                        data: [1776, 1776],
                         backgroundColor: '#38bdf8'
                     }
                 ]
