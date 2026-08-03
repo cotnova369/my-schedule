@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ตารางเรียนและภารกิจประจำวัน - ธนภัทร (Paramedic PMD 2569)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0f172a;
@@ -15,14 +15,18 @@
             --highlight: #f43f5e;
             --success: #10b981;
         }
+        * {
+            box-sizing: border-box;
+        }
         body {
             font-family: 'Kanit', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 16px;
             display: flex;
             justify-content: center;
+            min-height: 100vh;
         }
         .container {
             width: 100%;
@@ -30,8 +34,8 @@
         }
         header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 24px;
+            padding: 24px 16px;
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border-radius: 16px;
             border: 1px solid var(--border-color);
@@ -39,13 +43,14 @@
         }
         h1 {
             color: var(--accent-color);
-            margin: 0 0 10px 0;
-            font-size: 1.8rem;
+            margin: 0 0 8px 0;
+            font-size: 1.6rem;
+            line-height: 1.3;
         }
         p.subtitle {
             color: #94a3b8;
             margin: 0;
-            font-size: 1rem;
+            font-size: 0.95rem;
         }
         .card {
             background-color: var(--card-bg);
@@ -53,11 +58,17 @@
             padding: 20px;
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        /* Desktop Table View */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
         }
         th, td {
             padding: 14px 16px;
@@ -68,12 +79,14 @@
             background-color: #0f172a;
             color: var(--accent-color);
             font-weight: 600;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            font-size: 0.9rem;
+            letter-spacing: 0.5px;
         }
         tr:hover {
             background-color: #26354a;
         }
+        
         .time-badge {
             background-color: #0284c7;
             color: white;
@@ -82,55 +95,75 @@
             font-weight: 600;
             font-size: 0.85rem;
             display: inline-block;
+            white-space: nowrap;
         }
-        .tag-lecture {
-            background-color: #8b5cf6;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
+        .badge {
+            padding: 4px 10px;
+            border-radius: 6px;
             font-size: 0.75rem;
-        }
-        .tag-lab {
-            background-color: #ec4899;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-        }
-        .tag-personal {
-            background-color: #f59e0b;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-        }
-        .tag-food {
-            background-color: #10b981;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-        }
-        .tag-travel {
-            background-color: #06b6d4;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-        }
-        .status-done {
-            color: var(--success);
             font-weight: 600;
+            display: inline-block;
         }
-        .status-pending {
-            color: #fbbf24;
-            font-weight: 600;
+        .tag-lecture { background-color: #8b5cf6; color: white; }
+        .tag-lab { background-color: #ec4899; color: white; }
+        .tag-personal { background-color: #f59e0b; color: white; }
+        .tag-food { background-color: #10b981; color: white; }
+        .tag-travel { background-color: #06b6d4; color: white; }
+        
+        .status-done { color: var(--success); font-weight: 600; }
+        .status-pending { color: #fbbf24; font-weight: 600; }
+
+        /* Mobile Responsive Card Layout */
+        @media (max-width: 640px) {
+            body { padding: 12px; }
+            h1 { font-size: 1.3rem; }
+            p.subtitle { font-size: 0.85rem; }
+            .card { padding: 12px; }
+            
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+            thead { display: none; }
+            tr {
+                background: #111827;
+                margin-bottom: 12px;
+                border-radius: 12px;
+                padding: 14px;
+                border: 1px solid var(--border-color);
+            }
+            tr:hover { background: #1f2937; }
+            td {
+                border-bottom: none;
+                padding: 6px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 0.9rem;
+            }
+            td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #94a3b8;
+                font-size: 0.8rem;
+            }
+            td.activity-cell {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+                margin: 4px 0;
+                border-top: 1px solid #1e293b;
+                border-bottom: 1px solid #1e293b;
+                padding: 8px 0;
+            }
+            td.activity-cell::before { display: block; }
+            .activity-title { font-weight: 600; color: #f8fafc; font-size: 0.95rem; }
         }
+
         footer {
             text-align: center;
-            margin-top: 25px;
+            margin-top: 24px;
             color: #64748b;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
     </style>
 </head>
@@ -142,75 +175,77 @@
         </header>
 
         <div class="card">
-            <table>
-                <thead>
-                    <tr>
-                        <th>เวลา</th>
-                        <th>ประเภท</th>
-                        <th>กิจกรรม / รายละเอียด</th>
-                        <th>สถานที่ / ผู้สอน</th>
-                        <th>สถานะ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="time-badge">08:00 - 09:00</span></td>
-                        <td><span class="tag-lecture">Lecture</span></td>
-                        <td>ALS Neonatal (หลักการช่วยฟื้นคืนชีพทารกแรกเกิด)</td>
-                        <td>ห้อง omega two (นพ.ไชยโย)</td>
-                        <td><span class="status-done">✓ สำเร็จ</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="time-badge">09:13</span></td>
-                        <td><span class="tag-personal">ภารกิจส่วนตัว</span></td>
-                        <td>เติมเงินแอปเป๋าตังให้คุณยาย (534 บาท)</td>
-                        <td>แอป K+ ➡️ G-Wallet</td>
-                        <td><span class="status-done">✓ สำเร็จ</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="time-badge">09:31</span></td>
-                        <td><span class="tag-personal">ภารกิจส่วนตัว</span></td>
-                        <td>โอนจ่ายค่าหอพัก (4,464 บาท)</td>
-                        <td>โมบายแบงก์กิ้ง</td>
-                        <td><span class="status-done">✓ สำเร็จ</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="time-badge">12:00</span></td>
-                        <td><span class="tag-food">มื้อเที่ยง</span></td>
-                        <td>พักรับประทานอาหารกลางวัน: ข้าวมันไก่ 🍗</td>
-                        <td>ร้านใกล้ มข. / รพ.ขอนแก่น</td>
-                        <td><span class="status-pending">⏳ รอดำเนินการ</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="time-badge">12:15</span></td>
-                        <td><span class="tag-personal">เอกสาร</span></td>
-                        <td>เขียนและยื่นใบลาเรียนวันที่ 6 ส.ค. ผ่านระบบออนไลน์ให้อาจารย์ที่ปรึกษาเซ็น</td>
-                        <td>ระบบออนไลน์ มข.</td>
-                        <td><span class="status-pending">⏳ รอดำเนินการ</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="time-badge">13:00 - 14:00</span></td>
-                        <td><span class="tag-lab">Lab ภาคปฏิบัติ</span></td>
-                        <td>ALS Neonatal Lab (ฝึกปฏิบัติกู้ชีพทารกแรกเกิด)</td>
-                        <td>ห้องแล็บ (นพ.ไชยโย / ไปรมาศ / นนทิชานันท์)</td>
-                        <td><span class="status-pending">⏳ รอดำเนินการ</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="time-badge">17:00 - 18:00</span></td>
-                        <td><span class="tag-travel">เดินทาง</span></td>
-                        <td>เดินทางข้ามจังหวัดจาก ขอนแก่น ➡️ มหาสารคาม</td>
-                        <td>ทางหลวง (ระวังฝนตก)</td>
-                        <td><span class="status-pending">⏳ รอดำเนินการ</span></td>
-                    </tr>
-                    <tr>
-                        <td><span class="time-badge">19:00 - 21:00</span></td>
-                        <td><span class="tag-personal">ซ้อมเพลง</span></td>
-                        <td>ซ้อมร้องเพลงคอรัสสำหรับวันไหว้ครู</td>
-                        <td>วิทยาลัยดุริยางคศิลป์ มมส.</td>
-                        <td><span class="status-pending">⏳ รอดำเนินการ</span></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>เวลา</th>
+                            <th>ประเภท</th>
+                            <th>กิจกรรม / รายละเอียด</th>
+                            <th>สถานที่ / ผู้สอน</th>
+                            <th>สถานะ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="เวลา"><span class="time-badge">08:00 - 09:00</span></td>
+                            <td data-label="ประเภท"><span class="badge tag-lecture">Lecture</span></td>
+                            <td data-label="กิจกรรม" class="activity-cell"><span class="activity-title">ALS Neonatal (หลักการช่วยฟื้นคืนชีพทารกแรกเกิด)</span></td>
+                            <td data-label="สถานที่">ห้อง omega two (นพ.ไชยโย)</td>
+                            <td data-label="สถานะ"><span class="status-done">✓ สำเร็จ</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="เวลา"><span class="time-badge">09:13</span></td>
+                            <td data-label="ประเภท"><span class="badge tag-personal">ภารกิจส่วนตัว</span></td>
+                            <td data-label="กิจกรรม" class="activity-cell"><span class="activity-title">เติมเงินแอปเป๋าตังให้คุณยาย (534 บาท)</span></td>
+                            <td data-label="สถานที่">แอป K+ ➡️ G-Wallet</td>
+                            <td data-label="สถานะ"><span class="status-done">✓ สำเร็จ</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="เวลา"><span class="time-badge">09:31</span></td>
+                            <td data-label="ประเภท"><span class="badge tag-personal">ภารกิจส่วนตัว</span></td>
+                            <td data-label="กิจกรรม" class="activity-cell"><span class="activity-title">โอนจ่ายค่าหอพัก (4,464 บาท)</span></td>
+                            <td data-label="สถานที่">โมบายแบงก์กิ้ง</td>
+                            <td data-label="สถานะ"><span class="status-done">✓ สำเร็จ</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="เวลา"><span class="time-badge">12:00</span></td>
+                            <td data-label="ประเภท"><span class="badge tag-food">มื้อเที่ยง</span></td>
+                            <td data-label="กิจกรรม" class="activity-cell"><span class="activity-title">พักรับประทานอาหารกลางวัน: ข้าวมันไก่ 🍗</span></td>
+                            <td data-label="สถานที่">ร้านใกล้ มข. / รพ.ขอนแก่น</td>
+                            <td data-label="สถานะ"><span class="status-pending">⏳ รอดำเนินการ</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="เวลา"><span class="time-badge">12:15</span></td>
+                            <td data-label="ประเภท"><span class="badge tag-personal">เอกสาร</span></td>
+                            <td data-label="กิจกรรม" class="activity-cell"><span class="activity-title">เขียนและยื่นใบลาเรียนวันที่ 6 ส.ค. ผ่านระบบออนไลน์ให้อาจารย์ที่ปรึกษาเซ็น</span></td>
+                            <td data-label="สถานที่">ระบบออนไลน์ มข.</td>
+                            <td data-label="สถานะ"><span class="status-pending">⏳ รอดำเนินการ</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="เวลา"><span class="time-badge">13:00 - 14:00</span></td>
+                            <td data-label="ประเภท"><span class="badge tag-lab">Lab ภาคปฏิบัติ</span></td>
+                            <td data-label="กิจกรรม" class="activity-cell"><span class="activity-title">ALS Neonatal Lab (ฝึกปฏิบัติกู้ชีพทารกแรกเกิด)</span></td>
+                            <td data-label="สถานที่">ห้องแล็บ (นพ.ไชยโย / ไปรมาศ / นนทิชานันท์)</td>
+                            <td data-label="สถานะ"><span class="status-pending">⏳ รอดำเนินการ</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="เวลา"><span class="time-badge">17:00 - 18:00</span></td>
+                            <td data-label="ประเภท"><span class="badge tag-travel">เดินทาง</span></td>
+                            <td data-label="กิจกรรม" class="activity-cell"><span class="activity-title">เดินทางข้ามจังหวัดจาก ขอนแก่น ➡️ มหาสารคาม</span></td>
+                            <td data-label="สถานที่">ทางหลวง (ระวังฝนตก)</td>
+                            <td data-label="สถานะ"><span class="status-pending">⏳ รอดำเนินการ</span></td>
+                        </tr>
+                        <tr>
+                            <td data-label="เวลา"><span class="time-badge">19:00 - 21:00</span></td>
+                            <td data-label="ประเภท"><span class="badge tag-personal">ซ้อมเพลง</span></td>
+                            <td data-label="กิจกรรม" class="activity-cell"><span class="activity-title">ซ้อมร้องเพลงคอรัสสำหรับวันไหว้ครู</span></td>
+                            <td data-label="สถานที่">วิทยาลัยดุริยางคศิลป์ มมส.</td>
+                            <td data-label="สถานะ"><span class="status-pending">⏳ รอดำเนินการ</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <footer>
