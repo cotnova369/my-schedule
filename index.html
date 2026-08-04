@@ -58,104 +58,215 @@
             border: 1px solid var(--border-color);
             box-shadow: 0 10px 20px rgba(0,0,0,0.3);
         }
-        h2 { color: var(--accent-color); font-size: 1.15rem; margin-top: 0; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-        
-        .stat-box {
-            background: #0f172a;
-            padding: 12px 16px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            text-align: center;
+        .card h2 {
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 14px;
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .stat-val { font-size: 1.5rem; font-weight: 700; color: var(--accent-color); }
-        .stat-lbl { font-size: 0.75rem; color: var(--text-muted); }
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 4px 0;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .bg-green { background-color: rgba(16, 185, 129, 0.2); color: var(--accent-green); }
+        .bg-purple { background-color: rgba(139, 92, 246, 0.2); color: var(--accent-purple); }
+        .bg-rose { background-color: rgba(244, 63, 94, 0.2); color: var(--accent-rose); }
+        .bg-amber { background-color: rgba(245, 158, 11, 0.2); color: var(--accent-amber); }
+        
+        .table-responsive {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        th {
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        tr:last-child td { border-bottom: none; }
+        
+        .chart-container {
+            position: relative;
+            height: 220px;
+            width: 100%;
+        }
 
-        .table-responsive { width: 100%; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border-color); font-size: 0.88rem; }
-        th { background-color: #0f172a; color: var(--accent-color); font-weight: 600; font-size: 0.8rem; }
-        tr:hover { background-color: #1c2738; }
-
-        .time-badge { background-color: #0284c7; color: white; padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 0.8rem; }
-        .badge { padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
-        .bg-green { background-color: #059669; color: white; }
-        .bg-purple { background-color: #7c3aed; color: white; }
-        .bg-rose { background-color: #e11d48; color: white; }
-        .bg-amber { background-color: #d97706; color: white; }
-
-        .chart-container { position: relative; height: 260px; width: 100%; }
-
-        footer { text-align: center; margin-top: 24px; color: var(--text-muted); font-size: 0.8rem; }
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 20px;
+        }
+        
+        .time-badge {
+            background-color: rgba(56, 189, 248, 0.15);
+            color: var(--accent-color);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📊 Antigravity Master Executive Analytics Dashboard</h1>
-            <p class="subtitle">ระบบศูนย์กลางข้อมูลส่วนตัว & การบริหารจัดการชีวิต - ธนภัทร (PMD 2569)</p>
+            <h1>Personal Master Executive Analytics</h1>
+            <p class="subtitle">คุณธนภัทร ศิริเพ็ชร (โนว่า) • Paramedic Student PMD 2569 | หอพัก 999 แมนชั่น (ซอยหน้าเมือง 9)</p>
         </header>
 
-        <!-- Summary Metric Boxes -->
+        <!-- KPI Cards Summary -->
         <div class="grid-4">
-            <div class="stat-box">
-                <div class="stat-lbl">🏋️‍♂️ น้ำหนักล่าสุด (4 ส.ค. 06:57)</div>
-                <div class="stat-val" style="color: #38bdf8;">88.7 kg</div>
-                <div class="stat-lbl">Fat 26.5% | Water 49.4 kg</div>
+            <div class="card">
+                <div class="stat-label">น้ำหนักปัจจุบัน</div>
+                <div class="stat-value" style="color: var(--accent-color);">88.7 <span style="font-size: 1rem;">kg</span></div>
+                <span class="badge bg-green">มวลกล้ามเนื้อ +0.2 kg 🟢</span>
             </div>
-            <div class="stat-box">
-                <div class="stat-lbl">🥗 พลังงานสะสมวันนี้</div>
-                <div class="stat-val" style="color: #10b981;">1,520 Kcal</div>
-                <div class="stat-lbl">โปรตีน 70g | คาร์บ 120g</div>
+            <div class="card">
+                <div class="stat-label">เปอร์เซ็นต์ไขมัน (Body Fat)</div>
+                <div class="stat-value" style="color: var(--accent-amber);">26.5 <span style="font-size: 1rem;">%</span></div>
+                <span class="badge bg-amber">BMR 1,778 Kcal</span>
             </div>
-            <div class="stat-box">
-                <div class="stat-lbl">🍦 โควตาของหวานประจำสัปดาห์</div>
-                <div class="stat-val" style="color: #f59e0b;">เหลือ 0.5 / 2 ครั้ง</div>
-                <div class="stat-lbl">บราวนี่ (-1.0) + โกโก้หวานน้อย (-0.5)</div>
+            <div class="card">
+                <div class="stat-label">โควตาของหวานสัปดาห์นี้</div>
+                <div class="stat-value" style="color: var(--accent-rose);">0.5 / 2 <span style="font-size: 1rem;">ครั้ง</span></div>
+                <span class="badge bg-rose">ใช้ไป 1.5 ครั้ง (บราวนี่+โกโก้)</span>
             </div>
-            <div class="stat-box">
-                <div class="stat-lbl">💰 สรุปรายจ่ายสะสม (รวมวันนี้)</div>
-                <div class="stat-val" style="color: #f43f5e;">5,583.60 ฿</div>
-                <div class="stat-lbl">วันนี้ 115.60 ฿ (4 รายการสลิป)</div>
+            <div class="card">
+                <div class="stat-label">ค่าใช้จ่ายรวมสิงหาคม 2569</div>
+                <div class="stat-value" style="color: var(--accent-purple);">5,583.60 <span style="font-size: 1rem;">฿</span></div>
+                <span class="badge bg-purple">วันนี้ 4 สลิป: 115.60 ฿</span>
             </div>
         </div>
 
-        <!-- Weekly Fitness Plan Section -->
+        <!-- Vehicle Mileage Tracker -->
+        <div class="grid-2">
+            <div class="card">
+                <h2>🛵 สถิติมอเตอร์ไซค์ Honda (Motorcycle Odometer Tracker)</h2>
+                <div class="grid-2" style="margin-bottom: 0;">
+                    <div>
+                        <div class="stat-label">เลขไมล์ล่าสุด (Odometer)</div>
+                        <div class="stat-value" style="color: var(--accent-color);">75,165.2 <span style="font-size: 1rem;">km</span></div>
+                        <span class="badge bg-green">บันทึก 4 ส.ค. 15:03 น.</span>
+                    </div>
+                    <div>
+                        <div class="stat-label">ระดับน้ำมันในถัง</div>
+                        <div class="stat-value" style="color: var(--accent-green);">~ 3/4 <span style="font-size: 1rem;">ถัง</span></div>
+                        <span class="badge bg-purple">เตรียมบิดไป มมส. สารคาม</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📅 ตารางเรียน & ซ้อมวง MSU CHORUS (อัปเดต)</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>วัน / เวลา</th>
+                                <th>กิจกรรม / รายละเอียด</th>
+                                <th>สถานที่</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="time-badge">อ. 4 ส.ค. 19:00</span></td>
+                                <td>🎵 ซ้อมคอรัส (ขี่มอไซค์ไป-กลับ ขอนแก่น)</td>
+                                <td>ห้อง MU302 มมส. ➡️ ขอนแก่น</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-green">พ. 5 ส.ค. 09:00</span></td>
+                                <td>การตัดสินการตายและการชันสูตรพลิกศพ</td>
+                                <td>ห้องบรรยาย พารามีดิก</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-green">พ. 5 ส.ค. 13:00</span></td>
+                                <td>Case Discussion / Clinical Case Seminar</td>
+                                <td>ห้องอภิปรายเคส</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-purple">พ. 5 ส.ค. 17:00</span></td>
+                                <td>🗣️ Chit Chat Corner (ภาษาอังกฤษ)</td>
+                                <td>คณะมนุษยศาสตร์ มมส.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-purple">พ. 5 ส.ค. 19:00</span></td>
+                                <td>🎵 ซ้อมคอรัส (ซ้อมใหญ่ เดินทางค้างคืน)</td>
+                                <td>ห้อง MU302 มมส. (นอนสารคาม)</td>
+                            </tr>
+                            <tr>
+                                <td><span class="time-badge bg-rose">พฤ. 6 ส.ค. 07:30</span></td>
+                                <td>🎤 <b>แสดงวง MSU CHORUS ในพิธีไหว้ครู</b></td>
+                                <td>อาคารพลศึกษา มมส.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Fitness Schedule -->
         <div class="card" style="margin-bottom: 16px;">
-            <h2>🏋️‍♂️ แผนตารางออกกำลังกายประจำสัปดาห์ (Smart Integrated Fitness Plan)</h2>
+            <h2>🏋️‍♂️ ตารางออกกำลังกายประจำสัปดาห์ (Weekly Training Plan)</h2>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
                             <th>วัน</th>
-                            <th>โปรแกรมออกกำลังกาย / กิจกรรม</th>
-                            <th>รูปแบบคาร์ดิโอ & เวลา</th>
-                            <th>สถานะการปรับตามตารางเรียน/เวร</th>
+                            <th>เวทเทรนนิ่ง (Weight Training)</th>
+                            <th>คาร์ดิโอ (Cardio)</th>
+                            <th>หมายเหตุ</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td><b>จันทร์ (3 ส.ค.)</b></td>
-                            <td>Rest & Recovery</td>
-                            <td>งดคาร์ดิโอ (พักผ่อนร่างกายสะสม)</td>
-                            <td><span class="badge bg-green">พักผ่อน</span></td>
+                            <td>Push Day (อก + ไหล่หน้า/ข้าง + หลังแขน) 45 นาที</td>
+                            <td>เดินชันบนลู่วิ่ง (Incline 8) 20 นาที</td>
+                            <td><span class="badge bg-green">เสร็จสมบูรณ์ ✔️</span></td>
                         </tr>
-                        <tr>
-                            <td><b>อังคาร (4 ส.ค.)</b></td>
-                            <td>Rest & Recovery</td>
-                            <td>ซ้อมคอรัส (19:00 - 21:30 น. มมส. ไป-กลับขอนแก่น)</td>
-                            <td><span class="badge bg-purple">ติดภารกิจซ้อมคอรัส</span></td>
+                        <tr style="background-color: #1e293b;">
+                            <td><b>อังคาร (4 ส.ค. วันนี้)</b></td>
+                            <td>Rest & Recovery (วันพักฟื้นกล้ามเนื้อ)</td>
+                            <td>งดคาร์ดิโอหนัก (ขี่มอไซค์ซ้อมคอรัส มมส.)</td>
+                            <td><span class="badge bg-amber">วันพักประจำสัปดาห์</span></td>
                         </tr>
                         <tr>
                             <td><b>พุธ (5 ส.ค.)</b></td>
-                            <td>Upper Body Focus (อก + หลัง + ไหล่) 45 นาที</td>
-                            <td>เดินชันบนลู่วิ่ง (Incline 8) 20 นาที</td>
-                            <td><span class="badge bg-green">เวทเทรนนิ่งช่วงเย็นก่อนเดินทางค้างคืน</span></td>
+                            <td>Rest / Active Burn (ร่วม Chit Chat Corner + คอรัส)</td>
+                            <td>ขยับร่างกาย Chit Chat + ซ้อมคอรัส 2.5 ชม.</td>
+                            <td><span class="badge bg-purple">เผาผลาญผ่านกิจกรรม 400+ Kcal</span></td>
                         </tr>
                         <tr>
                             <td><b>พฤหัสบดี (6 ส.ค.)</b></td>
                             <td>Rest & Recovery</td>
                             <td>งดคาร์ดิโอหนัก</td>
-                            <td><span class="badge bg-rose">ติดเวรบ่าย RESUS / แสดงพิธีไหว้ครู</span></td>
+                            <td><span class="badge bg-rose">ติดเวรบ่าย RESUS / พิธีไหว้ครู</span></td>
                         </tr>
                         <tr>
                             <td><b>ศุกร์ (7 ส.ค.)</b></td>
@@ -197,51 +308,8 @@
         </div>
 
         <div class="grid-2">
-            <!-- Schedule Card -->
-            <div class="card">
-                <h2>📅 ตารางเรียน & ซ้อมวง MSU CHORUS</h2>
-                <div class="table-responsive">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>วัน / เวลา</th>
-                                <th>กิจกรรม / รายละเอียด</th>
-                                <th>สถานที่</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><span class="time-badge">อ. 4 ส.ค. 09:00</span></td>
-                                <td>MCI DESIGN FRAMEWORK WORKSHOP</td>
-                                <td>ศูนย์การเรียนรู้</td>
-                            </tr>
-                            <tr>
-                                <td><span class="time-badge">อ. 4 ส.ค. 13:00</span></td>
-                                <td>🎤 พรีเซนต์กลุ่ม 3 (Head & Spinal Trauma)</td>
-                                <td>ห้อง omega two</td>
-                            </tr>
-                            <tr>
-                                <td><span class="time-badge bg-purple">อ. 4 ส.ค. 19:00</span></td>
-                                <td>🎵 ซ้อมคอรัส (ขับรถไป-กลับ ขอนแก่น)</td>
-                                <td>ห้อง MU302 มมส. ➡️ ขอนแก่น</td>
-                            </tr>
-                            <tr>
-                                <td><span class="time-badge bg-purple">พ. 5 ส.ค. 19:00</span></td>
-                                <td>🎵 ซ้อมคอรัส (วันสุดท้าย เดินทางค้างคืน)</td>
-                                <td>ห้อง MU302 มมส. (นอนสารคาม)</td>
-                            </tr>
-                            <tr>
-                                <td><span class="time-badge bg-rose">พฤ. 6 ส.ค. 07:30</span></td>
-                                <td>🎤 <b>แสดงวง MSU CHORUS ในพิธีไหว้ครู</b></td>
-                                <td>อาคารพลศึกษา มมส.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
             <!-- Finance Log Card -->
-            <div class="card">
+            <div class="card" style="grid-column: span 2;">
                 <h2>🧾 บันทึกประวัติการเงิน (Financial History Ledger)</h2>
                 <div class="table-responsive">
                     <table>
@@ -318,9 +386,9 @@
                     },
                     {
                         label: 'Body Fat (%)',
-                        data: [26.6, 26.4, 26.5],
-                        borderColor: '#f43f5e',
-                        backgroundColor: 'rgba(244, 63, 94, 0.2)',
+                        data: [26.8, 26.5, 26.5],
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.2)',
                         tension: 0.3,
                         fill: true
                     }
@@ -329,7 +397,7 @@
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                plugins: { legend: { labels: { color: '#f8fafc' } } },
                 scales: {
                     x: { ticks: { color: '#94a3b8' }, grid: { color: '#243042' } },
                     y: { ticks: { color: '#94a3b8' }, grid: { color: '#243042' } }
@@ -341,24 +409,28 @@
         new Chart(ctxNutrition, {
             type: 'bar',
             data: {
-                labels: ['3 ส.ค. 69 (เมื่อวาน)', '4 ส.ค. 69 (วันนี้ปัจจุบัน)'],
+                labels: ['2 ส.ค.', '3 ส.ค.', '4 ส.ค. (วันนี้)'],
                 datasets: [
                     {
-                        label: 'พลังงานรับประทานจริง (Kcal)',
-                        data: [1860, 1520],
-                        backgroundColor: '#10b981'
+                        label: 'พลังงานที่ได้รับ (Kcal)',
+                        data: [1920, 1850, 1170],
+                        backgroundColor: '#10b981',
+                        borderRadius: 6
                     },
                     {
-                        label: 'เป้าหมาย BMR (Kcal)',
-                        data: [1776, 1778],
-                        backgroundColor: '#38bdf8'
+                        label: 'เป้าหมาย BMR/Active Target',
+                        data: [1850, 1850, 1850],
+                        type: 'line',
+                        borderColor: '#f43f5e',
+                        borderDash: [5, 5],
+                        fill: false
                     }
                 ]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: '#94a3b8' } } },
+                plugins: { legend: { labels: { color: '#f8fafc' } } },
                 scales: {
                     x: { ticks: { color: '#94a3b8' }, grid: { color: '#243042' } },
                     y: { ticks: { color: '#94a3b8' }, grid: { color: '#243042' } }
