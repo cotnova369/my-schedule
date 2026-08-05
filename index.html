@@ -158,9 +158,9 @@
                 <span class="badge bg-rose">ใช้ไป 1.5 ครั้ง (บราวนี่+โกโก้)</span>
             </div>
             <div class="card">
-                <div class="stat-label">พลังงานมื้อเช้า (5 ส.ค.)</div>
-                <div class="stat-value" style="color: var(--accent-green);">550 <span style="font-size: 1rem;">Kcal</span></div>
-                <span class="badge bg-purple">โปรตีน 30g (ผัดดอกกะหล่ำ+ไก่ทอด)</span>
+                <div class="stat-label">ค่าใช้จ่ายรวมสิงหาคม 2569</div>
+                <div class="stat-value" style="color: var(--accent-purple);">5,709.60 <span style="font-size: 1rem;">฿</span></div>
+                <span class="badge bg-purple">วันนี้ 1 รายการ: 44.00 ฿</span>
             </div>
         </div>
 
@@ -291,18 +291,65 @@
             </div>
         </div>
 
-        <!-- Historical Trend Charts -->
         <div class="grid-2">
-            <div class="card">
-                <h2>📈 สถิติมวลน้ำหนัก & ไขมันย้อนหลัง (Weight & Fat Trend)</h2>
-                <div class="chart-container">
-                    <canvas id="weightChart"></canvas>
-                </div>
-            </div>
-            <div class="card">
-                <h2>📊 สถิติการบริโภคแคลอรีประจำวัน (Daily Calorie Tracker)</h2>
-                <div class="chart-container">
-                    <canvas id="nutritionChart"></canvas>
+            <!-- Finance Log Card -->
+            <div class="card" style="grid-column: span 2;">
+                <h2>🧾 บันทึกประวัติการเงิน (Financial History Ledger)</h2>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>เวลา</th>
+                                <th>รายการ / ผู้รับเงิน</th>
+                                <th>หมวดหมู่</th>
+                                <th>จำนวน (บาท)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #1e293b;">
+                                <td>08:14 (วันนี้)</td>
+                                <td>7-Eleven สาขา หน้าเมืองซอย 11 (ทรูวอลเล็ท 7App)</td>
+                                <td><span class="badge bg-amber">น้ำเต้าหู้โทฟุซัง 18฿ + ไข่ต้มสมุนไพร 2 ฟอง 26฿</span></td>
+                                <td style="color:#f43f5e; font-weight:700;">44.00</td>
+                            </tr>
+                            <tr>
+                                <td>18:05 (4 ส.ค.)</td>
+                                <td>ปตท.ดี เอนเนอร์จี แอนด์ รีเทล (MAKE)</td>
+                                <td><span class="badge bg-amber">ค่าน้ำมันมอเตอร์ไซค์ Honda (เต็มถัง)</span></td>
+                                <td style="color:#f43f5e; font-weight:600;">80.00</td>
+                            </tr>
+                            <tr>
+                                <td>18:10 (4 ส.ค.)</td>
+                                <td>ร้านถ่ายเอกสาร มมส. ขามเรียง (เงินสด)</td>
+                                <td><span class="badge bg-purple">ถ่ายเอกสารโน้ตเพลงร่มจามจุรี (2 ชุด)</span></td>
+                                <td style="color:#f43f5e; font-weight:600;">2.00</td>
+                            </tr>
+                            <tr>
+                                <td>11:32 (4 ส.ค.)</td>
+                                <td>สเต๊กฮันเตอร์ สาขา ตลาด 62 บล็อก (เป๋าตัง)</td>
+                                <td><span class="badge bg-green">มื้อเที่ยง (ไทยช่วยไทยพะลัส)</span></td>
+                                <td style="color:#10b981; font-weight:600;">35.60 (ลดจาก 89฿)</td>
+                            </tr>
+                            <tr>
+                                <td>11:22 (4 ส.ค.)</td>
+                                <td>อาราบัส สาขา ตลาดตองแป (เป๋าตัง)</td>
+                                <td><span class="badge bg-green">เครื่องดื่ม (โกโก้หวานน้อย)</span></td>
+                                <td style="color:#10b981; font-weight:600;">12.00 (ลดจาก 30฿)</td>
+                            </tr>
+                            <tr>
+                                <td>08:33 (4 ส.ค.)</td>
+                                <td>7-Eleven สาขา ตลาดโต้รุ่งขอนแก่น</td>
+                                <td><span class="badge bg-amber">ของหวาน (บราวนี่+น้ำ)</span></td>
+                                <td style="color:#f43f5e; font-weight:600;">52.00</td>
+                            </tr>
+                            <tr>
+                                <td>08:28 (4 ส.ค.)</td>
+                                <td>ร้านข้าวห่อเจ๊ดาคนรุม (เป๋าตัง)</td>
+                                <td><span class="badge bg-green">มื้อเช้า (ไทยช่วยไทยพะลัส)</span></td>
+                                <td style="color:#10b981; font-weight:600;">16.00 (ลดจาก 40฿)</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -311,75 +358,5 @@
             <p>Antigravity Personal Master Analytics Dashboard • Persistent Database Storage System</p>
         </footer>
     </div>
-
-    <script>
-        const ctxWeight = document.getElementById('weightChart').getContext('2d');
-        new Chart(ctxWeight, {
-            type: 'line',
-            data: {
-                labels: ['2 ส.ค. 69', '3 ส.ค. 69', '4 ส.ค. 69 (เช้า)'],
-                datasets: [
-                    {
-                        label: 'น้ำหนัก (kg)',
-                        data: [88.7, 88.4, 88.7],
-                        borderColor: '#38bdf8',
-                        backgroundColor: 'rgba(56, 189, 248, 0.2)',
-                        tension: 0.3,
-                        fill: true
-                    },
-                    {
-                        label: 'Body Fat (%)',
-                        data: [26.8, 26.5, 26.5],
-                        borderColor: '#f59e0b',
-                        backgroundColor: 'rgba(245, 158, 11, 0.2)',
-                        tension: 0.3,
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: '#f8fafc' } } },
-                scales: {
-                    x: { ticks: { color: '#94a3b8' }, grid: { color: '#243042' } },
-                    y: { ticks: { color: '#94a3b8' }, grid: { color: '#243042' } }
-                }
-            }
-        });
-
-        const ctxNutrition = document.getElementById('nutritionChart').getContext('2d');
-        new Chart(ctxNutrition, {
-            type: 'bar',
-            data: {
-                labels: ['2 ส.ค.', '3 ส.ค.', '4 ส.ค.', '5 ส.ค. (เช้านี้)'],
-                datasets: [
-                    {
-                        label: 'พลังงานที่ได้รับ (Kcal)',
-                        data: [1920, 1850, 1170, 550],
-                        backgroundColor: '#10b981',
-                        borderRadius: 6
-                    },
-                    {
-                        label: 'เป้าหมาย BMR/Active Target',
-                        data: [1850, 1850, 1850, 1850],
-                        type: 'line',
-                        borderColor: '#f43f5e',
-                        borderDash: [5, 5],
-                        fill: false
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: '#f8fafc' } } },
-                scales: {
-                    x: { ticks: { color: '#94a3b8' }, grid: { color: '#243042' } },
-                    y: { ticks: { color: '#94a3b8' }, grid: { color: '#243042' } }
-                }
-            }
-        });
-    </script>
 </body>
 </html>
